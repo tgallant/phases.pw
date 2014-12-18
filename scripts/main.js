@@ -1,10 +1,28 @@
 'use strict';
 
+var getQueryVariable = function(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split('&');
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split('=');
+    if(pair[0] === variable){return pair[1];}
+  }
+  return('');
+};
+
 window.onload = function () {
-  document.getElementById('bpm').value = 240;
-  document.getElementById('pattern').value = 111011010;
-  document.getElementById('measures').value = 2;
-  document.getElementById('phase').value = 0;
+  if (window.location.search !== '') {
+    document.getElementById('bpm').value = getQueryVariable('b');
+    document.getElementById('pattern').value = getQueryVariable('p');
+    document.getElementById('measures').value = getQueryVariable('m');
+    document.getElementById('phase').value = getQueryVariable('ph');
+  }
+  else {
+    document.getElementById('bpm').value = 240;
+    document.getElementById('pattern').value = 111011010110;
+    document.getElementById('measures').value = 2;
+    document.getElementById('phase').value = 0;
+  }
 };
 
 var soundManager;
@@ -48,6 +66,7 @@ var playSound = function(sound1, sound2, pattern, measures, index, interval) {
       if (x < phaseObj.part1.length) {
         if (phaseObj.part1[x] === '1' && phaseObj.part2[x] === '1') {
           sound1.play();
+          sound2.play();
           setTimeout(function(){ inner(x+1); }, interval);
         }
         else if (phaseObj.part1[x] === '1') {
@@ -92,9 +111,10 @@ soundManager.setup({
     });
 
     button.addEventListener('click', function() {
+      var urlString = '/?b='+bpm.value+'&p='+pattern.value+'&m='+measures.value+'&ph='+phaseIter.value;
+      window.history.pushState('phased', 'phases.pw', urlString);
       var ms = bpmConvert(bpm.value);
       playSound(clavier, drum, pattern.value, measures.value, Number(phaseIter.value), ms);
     });
-
   }
 });
