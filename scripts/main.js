@@ -83,12 +83,12 @@ soundManager.setup({
 
     var clavier = soundManager.createSound({
       id: 'clavier',
-      url: '/clavier.mp3'
+      url: 'clavier.mp3'
     });
 
     var drum = soundManager.createSound({
       id: 'drum',
-      url: '/drum.mp3'
+      url: 'drum.mp3'
     });
 
     button.addEventListener('click', function() {
