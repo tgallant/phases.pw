@@ -111,7 +111,7 @@ soundManager.setup({
     });
 
     button.addEventListener('click', function() {
-      var urlString = window.history.search+'?b='+bpm.value+'&p='+pattern.value+'&m='+measures.value+'&ph='+phaseIter.value;
+      var urlString = window.location.search+'?b='+bpm.value+'&p='+pattern.value+'&m='+measures.value+'&ph='+phaseIter.value;
       window.history.pushState('phased', 'phases.pw', urlString);
       var ms = bpmConvert(bpm.value);
       playSound(clavier, drum, pattern.value, measures.value, Number(phaseIter.value), ms);
