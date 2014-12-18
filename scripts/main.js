@@ -18,7 +18,7 @@ window.onload = function () {
     document.getElementById('phase').value = getQueryVariable('ph');
   }
   else {
-    document.getElementById('bpm').value = 240;
+    document.getElementById('bpm').value = 300;
     document.getElementById('pattern').value = 111011010110;
     document.getElementById('measures').value = 2;
     document.getElementById('phase').value = 0;
